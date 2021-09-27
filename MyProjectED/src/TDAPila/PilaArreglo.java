@@ -4,47 +4,47 @@ import Excepciones.EmptyStackException;
 
 public class PilaArreglo <E> implements Stack<E>{
 
-	protected int tamaño;
+	protected int tamano;
 	protected E [] datos;
 	public PilaArreglo(int max) {
 		datos= (E[]) new Object [max];
-		tamaño=0;
+		tamano=0;
 	}
 	@Override
 	public void push(E item) {
-		datos[tamaño]=item;
-		tamaño++;
+		datos[tamano]=item;
+		tamano++;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		return tamaño==0;
+		return tamano==0;
 	}
 
 	@Override
 	public E pop() throws EmptyStackException {
-		if(tamaño==0) throw new EmptyStackException("Pila vacía");
-			E aux = datos[tamaño-1];
-			datos[tamaño-1]=null;
-			tamaño--;
+		if(tamano==0) throw new EmptyStackException("Pila vacía");
+			E aux = datos[tamano-1];
+			datos[tamano-1]=null;
+			tamano--;
 			return aux;
 	}
 
 	@Override
 	public E top() throws EmptyStackException {
-		if(tamaño==0) throw new EmptyStackException("Pila vacia");
+		if(tamano==0) throw new EmptyStackException("Pila vacia");
 		
-		return datos[tamaño-1];
+		return datos[tamano-1];
 	}
 
 	@Override
 	public int size() {
 		// TODO Auto-generated method stub
-		return tamaño;
+		return tamano;
 	}
 	
 	public void invertir() {
-		int i = 0;  int f = tamaño-1;
+		int i = 0;  int f = tamano-1;
 		while(i<f) {
 			intercambiar(i,f);
 			i++;
@@ -60,7 +60,7 @@ public class PilaArreglo <E> implements Stack<E>{
 	
 	public String toString() {
 		String st="";
-		for(int i=0;i<tamaño;i++) {
+		for(int i=0;i<tamano;i++) {
 		st+=datos[i];
 		}
 	return st;

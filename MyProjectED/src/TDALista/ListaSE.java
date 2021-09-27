@@ -5,6 +5,7 @@ import java.util.Iterator;
 import Excepciones.BoundaryViolationException;
 import Excepciones.EmptyListException;
 import Excepciones.InvalidPositionException;
+import TDAIterator.ElementIterator;
 
 public class ListaSE<E> implements PositionList<E>{
 	private int size;
@@ -147,21 +148,35 @@ public class ListaSE<E> implements PositionList<E>{
 
 	@Override
 	public E set(Position<E> p, E element) throws InvalidPositionException {
-		// TODO Auto-generated method stub
-		return null;
+		if(size==0)
+			throw new InvalidPositionException("Lista vacia.");
+		
+		Nodo<E> nodo= checkPosition(p);
+		E ret= nodo.element();
+		nodo.setElement(element);
+		
+		return ret;
 	}
 
 	@Override
 	public Iterator<E> iterator() {
-		// TODO Auto-generated method stub
-		return ;
+		return new ElementIterator<E>(this);
 	}
 		
 	@Override
 	public Iterable<Position<E>> positions() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		PositionList<Position<E>> ret= new ListaSE<Position<E>>();
+		if(size > 0) {
+			Nodo<E> it=head;
+			while(it.getNext() != null) {
+				ret.addLast(it);
+				it= it.getNext();
+			}
+			ret.addLast(it);//Agrego ultima posicion.
+		}
+		
+		return ret;
+		}
 	
 	private Nodo<E> checkPosition(Position<E> p) throws InvalidPositionException{
 			try {

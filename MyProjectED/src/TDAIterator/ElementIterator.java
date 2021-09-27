@@ -1,5 +1,6 @@
 package TDAIterator;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import Excepciones.BoundaryViolationException;
@@ -8,21 +9,22 @@ import Excepciones.InvalidPositionException;
 import TDALista.Position;
 import TDALista.PositionList;
 
-public class ElementIterator<E> {
+public class ElementIterator<E> implements Iterator<E> {
 protected PositionList<E> lista;
 protected Position<E> cursor;
 
 public ElementIterator(PositionList<E> L) {
-	lista = L;
-	if(lista.isEmpty())
-		cursor=null;
-	else
-		try {
-			cursor=lista.first();
-		} catch (EmptyListException e) {
-			// TODO Auto-generated catch block
-			cursor=null;
-		}
+	try {
+		
+		lista= L;
+		if(lista != null && !lista.isEmpty() )
+			cursor= lista.first();
+		else
+			cursor= null;
+		
+	} catch(EmptyListException e) {
+		cursor= null;
+	}
 }
 public boolean hasNext() {
 	return cursor!=null;
