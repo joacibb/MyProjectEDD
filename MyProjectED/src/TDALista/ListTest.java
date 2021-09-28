@@ -19,8 +19,8 @@ public class ListTest {
 	 * Inicializa la lista antes de cada test individual
 	 */
 
-	private ListaSE<String> getList() {
-		return new ListaSE<String>();
+	private ListaDE<String> getList() {
+		return new ListaDE<String>();
 	}
 
 	@Before
