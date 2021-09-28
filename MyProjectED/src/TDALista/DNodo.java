@@ -4,6 +4,11 @@ public class DNodo<E> implements Position<E>{
 private E element;
 private DNodo<E> previo,siguiente;
 
+public DNodo(E e) {
+	previo=null;
+	siguiente=null;
+	element = e;
+}
 public DNodo(DNodo<E>p, DNodo<E> s, E e) {
 	previo = p;
 	siguiente = s;
