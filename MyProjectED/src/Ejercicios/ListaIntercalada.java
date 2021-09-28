@@ -77,19 +77,45 @@ public class ListaIntercalada{
 		}
 		return aux;
 	}
+	
+	public static <E> PositionList<E> InvertirRecursivo(PositionList<E> listaEntrada) throws EmptyListException{
+        PositionList<E> listaInv = new ListaSE<E>();
+        
+        if(!listaEntrada.isEmpty()) {//Caso base, lista vacia
+            invertirList(listaEntrada,listaInv,listaEntrada.first(),listaEntrada.last());
+        }else { 
+            throw new EmptyListException("Lista vacia 5B");
+        }
+        return listaInv;    
+    }
+
+    private static <E> void invertirList(PositionList<E> LE, PositionList<E> LI, Position<E> primero,Position<E> ultimo) {
+        if(primero == ultimo) {
+            LI.addLast(primero.element());
+        }else {
+            LI.addLast(ultimo.element());
+            try {
+                invertirList(LE,LI,primero,LE.prev(ultimo));
+            } catch (InvalidPositionException | BoundaryViolationException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
+	
 	public static void main(String a[]) {
 		PositionList<Integer> l1=new ListaSE();
 		PositionList<Integer> l2=new ListaSE();
 		PositionList<Integer>l3;
 		l2.addLast(1);
 		l2.addLast(3);
-		l2.addLast(3);
 		l2.addLast(5);
+		l2.addLast(7);
 		
 		l1.addLast(2);
 		l1.addLast(4);
 		l1.addLast(6);
-		l1.addLast(7);
+		l1.addLast(8);
 		
 		ListaSE<Integer> l4 = new ListaSE();
 		l4.addLast(1);
@@ -104,7 +130,12 @@ public class ListaIntercalada{
 			System.out.println(item);
 		}
 		System.out.println("TEST INVERTIR");
-		l3=Invertir(l3);
+		try {
+			l3=InvertirRecursivo(l3);
+		} catch (EmptyListException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		for(int item:l3) {
 			System.out.println(item);
 		}
