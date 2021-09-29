@@ -46,7 +46,8 @@ public class Alumno {
 			else
 				System.out.println("El alumno "+nombre+" aun no curso la materia "+n);
 	}
-	
+
+	    
 	/*
 	 * Metodo privado para saber si una materia fue cursada o aprobada.
 	 * devuelve true si la materia ya está.
@@ -74,48 +75,5 @@ public class Alumno {
 	        return "Nombre: "+nombre+" / Cursadas: "+cursadas.size()+" / Aprobadas: "+aprobadas.size();
 	    }
 	  
-	/*
-	 * Author del tester: Pana Colombiano
-	 */
-	  public static void main(String[] args) {
-	        Alumno b = new Alumno("Joaquin");
-	        Alumno d = new Alumno("JuanB");
-	        Alumno g = new Alumno("Valentino");
 
-	        b.addCursada(123);
-	        b.addCursada(123); //Tiene que dar que ya se curso
-	        b.addCursada(456);
-	        b.addCursada(789);
-	        b.addAprobada(123); //ok porque ya cursé 123.
-	        //b = 3 cursadas y 1 aprobada
-	        System.out.println(b.toString());
-
-
-	        d.addCursada(123);
-	        d.addCursada(456);	
-	        d.addCursada(789);	
-	        d.addCursada(0);	
-	        d.addAprobada(123); //+1 aprobada
-	        d.addAprobada(789);//+1 aprobada
-	        d.addAprobada(999); // error porque no la curse
-	        
-	        //d = 4 cursadas y 2 aprobadas
-	        System.out.println(d.toString());
-
-	        g.addCursada(123);
-	        g.addCursada(456);
-	        g.addCursada(789);
-	        g.addAprobada(123);
-	        g.addAprobada(456);
-	        g.addAprobada(789);
-	        // g = 3 cursadas y 3 aprobadas
-	        System.out.println(g.toString());
-
-	       /* ListaAlumnoStock lista = new ListaAlumnoStock();
-	        lista.addAlumno(b);
-	        lista.addAlumno(d);
-	        lista.addAlumno(g);
-
-	        System.out.println("tamaño de lista de alumnos: "+lista.size());*/
-	    }
 }

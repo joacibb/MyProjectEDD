@@ -7,167 +7,171 @@ import Excepciones.EmptyListException;
 import Excepciones.InvalidPositionException;
 import TDAIterator.ElementIterator;
 
-public class ListaDE<E> implements PositionList<E> {
-	protected DNodo<E> header, trailer;
+public class ListaDE<E> implements PositionList<E>{
+	
+	//Atributos de instancia
+	private Dnode<E> header;
+	private Dnode<E> trailer;
 	protected int size;
 	
+	/**
+	 *  Creo una nueva lista vacia
+	 */
 	public ListaDE() {
-		header = new DNodo<E>(null);
-		trailer = new DNodo<E>(null);	
-		header.setNext(trailer);
-		trailer.setPrev(header);
-		size=0;
+		header = new Dnode<E>();
+		trailer = new Dnode<E>(null,this.header,null);
+		header.setSiguiente(trailer);;
+		size = 0;
 	}
+
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
 		return size;
 	}
 
 	@Override
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
-		return size==0;
+		return size == 0;
 	}
 
 	@Override
 	public Position<E> first() throws EmptyListException {
-		if(size==0)
-			throw new EmptyListException("Lista vacia");
-		return header.getNext();
+		// TODO Auto-generated method stub
+		if(isEmpty()) {
+			throw new EmptyListException("Lista vacia en metodo first");
+		}
+		return header.getSiguiente(); // retorno el siguiente xq el primer es dummy
 	}
 
 	@Override
 	public Position<E> last() throws EmptyListException {
-		if(size==0)
-			throw new EmptyListException("Lista vacia");
-		return trailer.getPrev();
+		if(isEmpty()) {
+			throw new EmptyListException("Lista vacia en metodo last");
+		}
+		return trailer.getAnterior(); // retorno el anterior por que el ultimo es dummy
 	}
 
 	@Override
+	// Si pido el siguiente puede ser que este en la posicion n-1 y el siguiente sea el nodo dummy, ¿Deberia dar error?
+	// 
 	public Position<E> next(Position<E> p) throws InvalidPositionException, BoundaryViolationException {
-		if(size==0)
-			throw new InvalidPositionException("La lista esta vacia");
-		DNodo<E> n = checkPosition(p);
-		if(n.getNext()==trailer)
-			throw new BoundaryViolationException("No se puede pedir el siguiente del ultimo elemento de la lista");
-		return n.getNext();
-	}
-
-	@Override
-	public Position<E> prev(Position<E> p) throws InvalidPositionException, BoundaryViolationException {
-		if(size==0)
-			throw new InvalidPositionException("La lista esta vacia");
-		DNodo<E> n = checkPosition(p);
-		if(n.getPrev()==header)
-			throw new BoundaryViolationException("No se puede pedir el anterior del primer elemento de la lista");
-		return n.getPrev();
-	}
-
-	@Override
-	public void addFirst(E element) {
-		DNodo<E> sgte = header.getNext();
-		DNodo<E> n = new DNodo<E>(header,sgte,element);
-		header.setNext(n);
-		sgte.setPrev(n);
-		size++;
-	}
-
-	@Override
-	public void addLast(E element) {
-		DNodo<E> prev = trailer.getPrev();
-		DNodo<E> n = new DNodo<E>(prev,trailer,element);
-		trailer.setPrev(n);
-		prev.setNext(n);
-		size++;
-	}
-
-	@Override
-	public void addAfter(Position<E> p, E element) throws InvalidPositionException {
-		if(size==0)
-			throw new InvalidPositionException("La lista esta vacia");
-		DNodo<E> n = checkPosition(p);
-		DNodo<E> aux = n.getNext();
-		DNodo<E> r = new DNodo<E>(n,aux,element);
-		n.setNext(r);
-		aux.setPrev(r);
-		size++;
-	}
-
-	@Override
-	public void addBefore(Position<E> p, E element) throws InvalidPositionException {
-		if(size==0)
-			throw new InvalidPositionException("La lista esta vacia");
-		DNodo<E> n = checkPosition(p);
-		DNodo<E> aux = n.getPrev();
-		DNodo<E> r = new DNodo<E>(aux,n,element);
-		n.setPrev(r);
-		aux.setNext(r);
-		size++;
+		Dnode<E> aux = this.checkPosition(p);
+		aux = aux.getSiguiente();
 		
-	}
-
-	@Override
-	public E remove(Position<E> p) throws InvalidPositionException {
-		if(size==0)
-			throw new InvalidPositionException("La lista esta vacia");
-		
-		DNodo<E> n = checkPosition(p);
-		DNodo<E> pre = n.getPrev();
-		DNodo<E> sig = n.getNext();
-		E ret = n.element();
-		
-		pre.setNext(sig);
-		sig.setPrev(pre);
-		n.setNext(null);
-		n.setPrev(null);
-		n.setElement(null);
-		size--;
-		
-		return ret;
-	}
-
-	@Override
-	public E set(Position<E> p, E element) throws InvalidPositionException {
-		if(size==0)
-			throw new InvalidPositionException("La lista esta vacia");
-		DNodo<E> n = checkPosition(p);
-		E ret = n.element();
-		n.setElement(element);
-		
-		return ret;
-	}
-
-	@Override
-	public Iterator<E> iterator() {
-		return new ElementIterator<E>(this);
-	}
-
-	@Override
-	public Iterable<Position<E>> positions() {
-		PositionList<Position<E>> list= new ListaDE<Position<E>>();
-		if(size > 0) {
-			DNodo<E> it= header.getNext();
-			
-			while(it.getNext() != trailer) {
-				list.addLast(it);
-				it= it.getNext();
-			}
-			list.addLast(it);
+		if(aux == this.trailer) {
+			throw new BoundaryViolationException("No tiene siguiente en next");
 		}
-		
-		return list;
-	}
+		return (Position<E>) aux;
+	} 
+
 	
-	private DNodo<E> checkPosition(Position<E> p) throws InvalidPositionException {
-		try {
-			if( p == null || p == header || p == trailer)
-				throw new InvalidPositionException("Posicion invalida.");
-			
-			return (DNodo<E>) p;
-		} catch(ClassCastException e) {
-			throw new InvalidPositionException("Posicion invalida.");
-		}
-	}
 	
+	//Debo considerar que se le pida el anterior a el siguiente del nodo dummy
+	@Override
+	public Position<E> prev(final Position<E> p) throws InvalidPositionException, BoundaryViolationException {
+        Dnode<E> aux = this.checkPosition(p);
+        aux = aux.getAnterior();
+        if (aux == this.header) {
+            throw new BoundaryViolationException("No tiene anterior en prev");
+        }
+        return aux;
+    }
+	@Override
+	public void addFirst(final E element) {
+        Dnode<E> aux = new Dnode<E>(element, header, header.getSiguiente());
+        header.getSiguiente().setAnterior(aux);
+        header.setSiguiente(aux);
+        size++;
+    }
+
+	@Override
+	public void addLast(final E element) {
+        Dnode<E> aux = new Dnode<E>(element, trailer.getAnterior(), trailer);
+        trailer.getAnterior().setSiguiente(aux);
+        trailer.setAnterior(aux);
+        size++;
+    }
+
+	@Override
+	public void addAfter(final Position<E> p, final E element) throws InvalidPositionException {
+        Dnode<E> aux = this.checkPosition(p);
+        Dnode<E> nuevo = new Dnode<E>(element, aux, aux.getSiguiente());
+        aux.getSiguiente().setAnterior(nuevo);
+        aux.setSiguiente(nuevo);
+        size++;
+    }
+	@Override
+	 public void addBefore(final Position<E> p, final E element) throws InvalidPositionException {
+        Dnode<E> aux = this.checkPosition(p);
+        Dnode<E> nuevo = new Dnode<E>(element, aux.getAnterior(), aux);
+        aux.getAnterior().setSiguiente(nuevo);
+        aux.setAnterior(nuevo);
+        size++;
+    }
+
+	@Override
+	public E remove(final Position<E> p) throws InvalidPositionException {
+        Dnode<E> aeliminar = this.checkPosition(p);
+        aeliminar.getSiguiente().setAnterior(aeliminar.getAnterior());
+        aeliminar.getAnterior().setSiguiente(aeliminar.getSiguiente());
+        size--;
+        return aeliminar.element();
+    }
+    
+    @Override
+    public E set(final Position<E> p, final E element) throws InvalidPositionException {
+        final Dnode<E> tochange = this.checkPosition(p);
+        final E aux = tochange.element();
+        tochange.setElemento(element);
+        return aux;
+    }
+
+	@Override
+	 public Iterator<E> iterator() {
+        return new ElementIterator<E>(this);
+    }
+
+	@Override
+	 public Iterable<Position<E>> positions() {
+        final PositionList<Position<E>> retorno = new ListaDE<Position<E>>();
+        if (!this.isEmpty()) {
+            try {
+                Position<E> recorro;
+                for (recorro = this.first(); recorro != this.last(); recorro = this.next(recorro)) {
+                	retorno.addLast(recorro);
+                }
+                retorno.addLast(recorro);
+            }
+            catch (InvalidPositionException | BoundaryViolationException | EmptyListException e) {
+                e.printStackTrace();
+            }
+        }
+        return retorno;
+    }
+	
+	private Dnode<E> checkPosition(final Position<E> p)throws InvalidPositionException {
+        if (p == null) {
+            throw new InvalidPositionException("");
+        }
+        if (p == this.header) {
+            throw new InvalidPositionException("");
+        }
+        if (p == this.trailer) {
+            throw new InvalidPositionException("");
+        }
+        if (this.isEmpty()) {
+            throw new InvalidPositionException("");
+        }
+        try {
+            final Dnode<E> temp = (Dnode<E>)p;
+            if (temp.getAnterior() == null || temp.getSiguiente() == null) {
+                throw new InvalidPositionException("");
+            }
+            return temp;
+        }
+        catch (ClassCastException e) {
+            throw new InvalidPositionException("");
+        }
+    }
 }
