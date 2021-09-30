@@ -11,7 +11,7 @@ import TDALista.PositionList;
 public class MapeoConLista<K,V> implements Map<K,V> {
 	
 	
-	protected PositionList<Entrada<K, V>> m;
+	protected ListaSE<Entrada<K, V>> m;
 
 	public MapeoConLista() {
 		m = new ListaSE<Entrada<K,V>>();
@@ -26,24 +26,13 @@ public class MapeoConLista<K,V> implements Map<K,V> {
 	}
 
 	public V get(K key) throws InvalidKeyException {
-		if(key == null) {
-			throw new InvalidKeyException("se escribio una Key invalida");
-		}
-		
-		Iterator<Position<Entrada<K, V>>> it = m.positions().iterator();
-		Position<Entrada<K, V>> p;
-		
-		V retorno = null;
-		
-		while(it.hasNext() && retorno == null) {
-			p = it.next();
-			
-			if(p.element().getKey().equals(key))
-				retorno = p.element().getValue();
-			
-		}
-		
-		return retorno;
+		if(key==null)
+			throw new InvalidKeyException("La clave es nula");
+		for(Position<Entrada<K,V>> p : m.positions())
+			if(p.element().getKey()==key) {
+				return p.element().getValue();
+			}
+		return null;
 	}
 	
 	public V put(K key, V value) throws InvalidKeyException {
