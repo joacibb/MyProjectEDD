@@ -1,4 +1,4 @@
-package Ejercicios;
+package EjerciciosLista;
 
 import java.util.ArrayList;
 
@@ -35,7 +35,7 @@ public class AlumnoArrayList {
 	
 	/*
 	 * Agrega una materia como aprobada.
-	 * Si la materia aun no se cursó o ya fue aprobada, imprime avisando la situación.
+	 * Si la materia aun no se cursï¿½ o ya fue aprobada, imprime avisando la situaciï¿½n.
 	 */
 	public void addAprobada(int n) {
 		if(!aprobadas.contains(n)&&cursadas.contains(n))
@@ -50,7 +50,7 @@ public class AlumnoArrayList {
 	    
 	/*
 	 * Metodo privado para saber si una materia fue cursada o aprobada.
-	 * devuelve true si la materia ya está.
+	 * devuelve true si la materia ya estï¿½.
 	 */
 	
 	  public String toString() {
@@ -66,7 +66,7 @@ public class AlumnoArrayList {
 	        b.addCursada(123); //Tiene que dar que ya se curso
 	        b.addCursada(456);
 	        b.addCursada(789);
-	        b.addAprobada(123); //ok porque ya cursé 123.
+	        b.addAprobada(123); //ok porque ya cursï¿½ 123.
 	        //b = 3 cursadas y 1 aprobada
 	        System.out.println(b.toString());
 
@@ -96,6 +96,6 @@ public class AlumnoArrayList {
 	        lista.addLast(d);
 	        lista.addLast(g);
 
-	        System.out.println("tamaño de lista de alumnos: "+lista.size());
+	        System.out.println("tamaï¿½o de lista de alumnos: "+lista.size());
 	    }
 }

@@ -1,4 +1,4 @@
-package Ejercicios;
+package EjerciciosLista;
 
 import Excepciones.InvalidPositionException;
 import TDALista.ListaSE;

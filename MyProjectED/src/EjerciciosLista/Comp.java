@@ -1,4 +1,4 @@
-package Ejercicios;
+package EjerciciosLista;
 
 import Excepciones.BoundaryViolationException;
 import Excepciones.EmptyListException;

@@ -1,4 +1,4 @@
-package Ejercicios;
+package EjerciciosLista;
 
 import TDALista.ListaSE;
 import TDAMapeo.Entry;

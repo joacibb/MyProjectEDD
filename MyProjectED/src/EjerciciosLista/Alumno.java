@@ -1,4 +1,4 @@
-package Ejercicios;
+package EjerciciosLista;
 
 import Excepciones.BoundaryViolationException;
 import Excepciones.EmptyListException;
@@ -35,7 +35,7 @@ public class Alumno {
 	
 	/*
 	 * Agrega una materia como aprobada.
-	 * Si la materia aun no se cursó o ya fue aprobada, imprime avisando la situación.
+	 * Si la materia aun no se cursï¿½ o ya fue aprobada, imprime avisando la situaciï¿½n.
 	 */
 	public void addAprobada(int n) {
 		if(!estaR(n,aprobadas)&&estaR(n,cursadas))
@@ -50,7 +50,7 @@ public class Alumno {
 	    
 	/*
 	 * Metodo privado para saber si una materia fue cursada o aprobada.
-	 * devuelve true si la materia ya está.
+	 * devuelve true si la materia ya estï¿½.
 	 */
 	private boolean estaR(int n, PositionList<Integer> lista) {
 		boolean esta = false;

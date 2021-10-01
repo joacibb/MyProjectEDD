@@ -1,4 +1,4 @@
-package Ejercicios;
+package EjerciciosLista;
 
 import TDALista.ListaDE;
 import TDALista.PositionList;
@@ -35,7 +35,7 @@ public class ListaAlumno{
 	        b.addCursada(123); //Tiene que dar que ya se curso
 	        b.addCursada(456);
 	        b.addCursada(789);
-	        b.addAprobada(123); //ok porque ya cursé 123.
+	        b.addAprobada(123); //ok porque ya cursï¿½ 123.
 	        //b = 3 cursadas y 1 aprobada
 	        System.out.println(b.toString());
 
@@ -65,6 +65,6 @@ public class ListaAlumno{
 	        lista.addLast(d);
 	        lista.addLast(g);
 
-	        System.out.println("tamaño de lista de alumnos: "+lista.size());
+	        System.out.println("tamaï¿½o de lista de alumnos: "+lista.size());
 	    }
 }
