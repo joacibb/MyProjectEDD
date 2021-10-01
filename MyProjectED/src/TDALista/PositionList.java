@@ -115,4 +115,7 @@ public interface PositionList<E> extends Iterable<E>
 	 * @return Una colecci�n iterable de posiciones.
 	 */
 	public Iterable<Position<E>> positions();
+
+
+	void eliminar(PositionList<E> L) throws InvalidPositionException;
 }

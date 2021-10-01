@@ -157,7 +157,39 @@ public class ListaSE<E> implements PositionList<E>{
 		
 		return ret;
 	}
-
+	
+	@Override
+	public void eliminar(PositionList<E> L) throws InvalidPositionException {
+		PositionList<E> aux = new ListaSE<E>();
+		for(Position<E> p : L.positions()) {
+			for(Position<E> t : positions()) {
+				if(t!=null){
+					if(t.element().equals(p.element())) {
+						aux.addFirst(t.element());
+						remove(t);
+					}
+				}
+			}
+		}
+		
+		for(Position<E> a : aux.positions())
+				this.addLast(aux.remove(a));
+		}
+		
+	
+	public String toString() {
+        String listText = "";
+        Nodo<E> current = head;
+        
+        while(current != null) {
+            listText = listText + current.element().toString();
+            if(current.getNext() != null) {
+                listText = listText + " -> ";
+            }
+            current = current.getNext();
+        }
+        return listText;
+    }
 	@Override
 	public Iterator<E> iterator() {
 		return new ElementIterator<E>(this);

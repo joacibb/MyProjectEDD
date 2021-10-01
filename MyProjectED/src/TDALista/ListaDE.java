@@ -53,7 +53,7 @@ public class ListaDE<E> implements PositionList<E>{
 	}
 
 	@Override
-	// Si pido el siguiente puede ser que este en la posicion n-1 y el siguiente sea el nodo dummy, ¿Deberia dar error?
+	// Si pido el siguiente puede ser que este en la posicion n-1 y el siguiente sea el nodo dummy, ï¿½Deberia dar error?
 	// 
 	public Position<E> next(Position<E> p) throws InvalidPositionException, BoundaryViolationException {
 		Dnode<E> aux = this.checkPosition(p);
@@ -149,6 +149,10 @@ public class ListaDE<E> implements PositionList<E>{
         }
         return retorno;
     }
+	
+	public void eliminar(PositionList<E> L) {
+		
+	}
 	
 	private Dnode<E> checkPosition(final Position<E> p)throws InvalidPositionException {
         if (p == null) {
