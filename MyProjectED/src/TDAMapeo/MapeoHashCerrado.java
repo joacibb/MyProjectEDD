@@ -1,13 +1,10 @@
-package EjerciciosMapeo;
+package TDAMapeo;
 
 import java.util.Random;
 
 import Excepciones.InvalidKeyException;
 import TDALista.ListaDE;
 import TDALista.PositionList;
-import TDAMapeo.Entrada;
-import TDAMapeo.Entry;
-import TDAMapeo.Map;
 
 /**
  * TDAMap, implementacion: Usando un tabla hash cerrada donde cada bucket hace referencia a una entrada<K,V>.
