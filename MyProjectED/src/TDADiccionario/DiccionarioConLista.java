@@ -125,4 +125,10 @@ public class DiccionarioConLista<K,V> implements Dictionary<K,V>{
 		return D;
 	}
 
+	@Override
+	public Iterable<V> eliminarTodos(K key) throws InvalidKeyException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

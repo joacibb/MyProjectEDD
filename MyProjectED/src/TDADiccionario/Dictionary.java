@@ -55,5 +55,8 @@ public interface Dictionary<K,V>
 	 * @return Colecci�n iterable de todas las entradas.
 	 */
 	public Iterable<Entry<K,V>> entries();
+
+
+	Iterable<V> eliminarTodos(K key) throws InvalidKeyException;
 	
 }

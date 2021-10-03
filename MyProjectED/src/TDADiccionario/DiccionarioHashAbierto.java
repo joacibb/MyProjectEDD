@@ -245,4 +245,17 @@ public class DiccionarioHashAbierto<K,V> implements Dictionary<K,V> {
 		if(key==null)
 			throw new InvalidKeyException("Clave invalida.");
 	}
+	
+	@Override
+	public Iterable<V> eliminarTodos(K key) throws InvalidKeyException{
+		PositionList<V> entriesList= new ListaDE<V>();
+		
+		for(int i=0; i<buckets.length; i++) {
+			for(Entry<K,V> entradaActual: buckets[i]) {
+				if(!((entradaActual.getKey()).equals(key)))
+				entriesList.addLast(entradaActual.getValue());
+			}
+		}
+			return entriesList;
+	}
 }
