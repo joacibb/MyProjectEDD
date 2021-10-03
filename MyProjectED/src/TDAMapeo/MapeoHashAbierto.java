@@ -23,7 +23,7 @@ public class MapeoHashAbierto<K, V> implements Map<K, V>{
 	 * Se instancia la tabla hash vacia y se inicializan sus atributos correspondientes
 	 */
 	public MapeoHashAbierto() {
-		capacidad= 6;
+		capacidad= 47;
 		size=0;
 		prime= 104729;
 		bucket=(PositionList<Entrada<K,V>>[]) new PositionList[capacidad];
@@ -73,7 +73,6 @@ public class MapeoHashAbierto<K, V> implements Map<K, V>{
 				}
 			}
 		}
-		
 		return retValue;
 	}
 
