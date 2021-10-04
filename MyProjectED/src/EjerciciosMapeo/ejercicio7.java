@@ -8,23 +8,34 @@ import TDAMapeo.MapeoConLista;
 public class ejercicio7 {
 
 	public static <K,V> boolean contiene(Map<K,V> m1, Map<K,V> m2) {
+		
+		
 		boolean contiene=true;   //c1
-		for (Entry<K,V> i : m1.entries()) {  //O(n)
+		boolean tamaño = true;
+		
+		if(m1.size()>m2.size()) { //c2
+			contiene=false; //c3
+			tamaño=false; //c4
+		}
+		if(tamaño) {
+		for (Entry<K,V> i : m1.entries()) {  // n
 			try {
 				if((!(m2.get(i.getKey())!=null))&&contiene) { //n porque recorro todo m2 para saber si existe i.getKey
-					contiene=false;				}				//c3
+					contiene=false;				}				//c5
 			} catch (InvalidKeyException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		return contiene; //c4
+		}
+		
+		return contiene; //c6
 	}
 	
 	/*
-	 * Tcontiene = Tc1+Tn(n+c3)+c4
-	 * Tcontiene = T(n
-	 * 
+	 * Tcontiene = c1+c2+c3+c4+n(n+c5)+c6
+	 * Tcontiene = c+n^2
+	 * O(Tcontiene)n^2
 	 */
 
 	public static void main(String [] args) {
